@@ -134,7 +134,7 @@ B-clang:
   - grep '^PASS tst_totp_validate' liboath/tests/tst_totp_validate.log
   - grep '^PASS tst_pskctool' pskctool/tests/tst_pskctool.sh.log
   - time make clean; rm config.cache
-  - time ./configure -C --enable-gcc-warnings CC="clang -std=c23 -gdwarf-4 -fsanitize=address,undefined -fno-sanitize-recover=all -fsanitize-address-use-after-scope" WARN_CFLAGS=-Werror --with-xmlsec-crypto-engine=no
+  - time ./configure -C --enable-gcc-warnings CC="clang -std=c23 -D_POSIX_C_SOURCE=200112L -gdwarf-4 -fsanitize=address,undefined -fno-sanitize-recover=all -fsanitize-address-use-after-scope" WARN_CFLAGS=-Werror --with-xmlsec-crypto-engine=no
   - time make V=1 VERBOSE=t -j$(nproc) -k check
   - grep '^PASS tst_totp_validate' liboath/tests/tst_totp_validate.log
   - grep '^PASS tst_pskctool' pskctool/tests/tst_pskctool.sh.log
