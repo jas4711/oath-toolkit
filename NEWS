@@ -10,6 +10,11 @@ Reported by Kang-Che Sung <Explorer09> in
 Reported by Kang-Che Sung <Explorer09> in
 <https://codeberg.org/oath-toolkit/oath-toolkit/issues/116>.
 
+** oathtool: Reject further nonsense parameter combinations.
+Combining --hotp with --time-step-size, --start-time, or --now does
+not make sense.  Combining --totp with --counter does not make sense.
+All these are now rejected as user errors.
+
 * Noteworthy changes in release 2.6.14 (2026-01-27) [stable]
 
 ** pam_oath: Support null_usersfile_okay parameter.

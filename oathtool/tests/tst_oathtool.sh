@@ -222,6 +222,33 @@ else
     echo "PASS oathtool --hotp --totp"
 fi
 
+if $OATHTOOL --hotp --time-step-size 17 00 > /dev/null 2>&1; then
+    echo "FAIL oathtool --hotp --time-step-size"
+    exit 1
+else
+    echo "PASS oathtool --hotp --time-step-size"
+fi
+
+if $OATHTOOL --hotp --start-time 17 00 > /dev/null 2>&1; then
+    echo "FAIL oathtool --hotp --start-time"
+    exit 1
+else
+    echo "PASS oathtool --hotp --start-time"
+fi
+
+if $OATHTOOL --hotp --now 17 00 > /dev/null 2>&1; then
+    echo "FAIL oathtool --hotp --now"
+    exit 1
+else
+    echo "PASS oathtool --hotp --now"
+fi
+
+if $OATHTOOL --totp --counter 17 00 > /dev/null 2>&1; then
+    echo "FAIL oathtool --totp --counter"
+    exit 1
+else
+    echo "PASS oathtool --totp --counter"
+fi
 
 if $OATHTOOL --base32 --hex 00 > /dev/null 2>&1; then
     echo "FAIL oathtool --hex --base32"
