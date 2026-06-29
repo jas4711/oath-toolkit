@@ -6,7 +6,7 @@ OATH Toolkit NEWS -- History of user-visible changes.           -*- outline -*-
 Reported by Kang-Che Sung <Explorer09> in
 <https://codeberg.org/oath-toolkit/oath-toolkit/issues/117>.
 
-** oathtool: Improve command-line parse handling to reject invalid requests.
+** oathtool: Reject --hotp --totp instead of treating it as --totp.
 Reported by Kang-Che Sung <Explorer09> in
 <https://codeberg.org/oath-toolkit/oath-toolkit/issues/116>.
 
