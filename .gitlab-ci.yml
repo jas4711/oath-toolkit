@@ -470,11 +470,11 @@ B-OpenBSD:
   - grep '^PASS tst_validate' libpskc/tests/tst_validate.log
 
 # https://docs.gitlab.com/ci/runners/hosted_runners/macos/
-B-macOS14Xcode15:
+B-macOS15Xcode16:
   rules:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   - when: manual
-  image: macos-14-xcode-15
+  image: macos-15-xcode-16
   tags: [ saas-macos-medium-m1 ]
   stage: build
   variables:
@@ -497,11 +497,11 @@ B-macOS14Xcode15:
   - time env XML_CATALOG_FILES="$HOMEBREW_PREFIX/etc/xml/catalog" gmake V=1 dist
   - !reference [.save-artifacts, script]
 
-B-macOS15Xcode16:
+B-macOS26Xcode26:
   rules:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   - when: manual
-  image: macos-15-xcode-16
+  image: macos-26-xcode-26
   tags: [ saas-macos-large-m2pro ]
   stage: build
   variables:
@@ -653,7 +653,7 @@ Coverity:
 0-compare:
   image: alpine:latest
   stage: repro
-  needs: [ B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-AlmaLinux8, B-AlmaLinux9, B-RockyLinux8, B-RockyLinux9, B-Trisquel11, B-Ubuntu2204, B-macOS14Xcode15, B-macOS15Xcode16, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004, T-Trisquel10, T-Ubuntu2004 ]
+  needs: [ B-PureOS10, B-Debian11, B-Devuan5, B-Debian12, B-AlmaLinux8, B-AlmaLinux9, B-RockyLinux8, B-RockyLinux9, B-Trisquel11, B-Ubuntu2204, B-macOS15Xcode16, B-macOS26Xcode26, B-Guix, R-Guix, R-Debian12, R-Ubuntu2404, S-Trisquel10, S-Ubuntu2004, T-Trisquel10, T-Ubuntu2004 ]
   script:
   - cd out
   - sha256sum */*.tar.* */*/*.tar.* | sort | grep    -- -src.tar.
@@ -669,8 +669,8 @@ Coverity:
   - cmp b-almalinux8/src/*.tar.gz b-devuan5/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz r-guix/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz r-ubuntu2404/src/*v2.*.tar.gz
-  - cmp b-almalinux8/src/*.tar.gz b-macos14xcode15/src/*.tar.gz
   - cmp b-almalinux8/src/*.tar.gz b-macos15xcode16/src/*.tar.gz
+  - cmp b-almalinux8/src/*.tar.gz b-macos26xcode26/src/*.tar.gz
 # Confirm old git-archive (export-subst but long git describe) tarball reproducibility
   - cmp b-trisquel11/src/*.tar.gz b-ubuntu2204/src/*.tar.gz
 # Confirm really old git-archive (no export-subst) tarball reproducibility
@@ -683,7 +683,7 @@ Coverity:
   - cmp b-pureos10/*.tar.gz b-debian11/*.tar.gz
   - cmp b-trisquel11/*.tar.gz b-ubuntu2204/*.tar.gz
   - cmp t-trisquel10/*.tar.gz t-ubuntu2004/*.tar.gz
-  - cmp b-macos14xcode15/*.tar.gz b-macos15xcode16/*.tar.gz
+  - cmp b-macos15xcode16/*.tar.gz b-macos26xcode26/*.tar.gz
 # Confirm 'make dist' from git-archive tarball reproducibility
   - cmp s-trisquel10/*.tar.gz s-ubuntu2004/*.tar.gz
   artifacts:
@@ -1155,11 +1155,10 @@ Gentoo:
   - ../configure --enable-gcc-warnings
   - make -j$(nproc) check V=1 VERBOSE=t
 
-macOS15Xcode16:
+macOS:
   rules:
   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   - when: manual
-  image: macos-15-xcode-16
   tags: [ saas-macos-medium-m1 ]
   stage: test
   needs: [B-Guix]
