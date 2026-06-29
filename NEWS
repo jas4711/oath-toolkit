@@ -2,6 +2,10 @@ OATH Toolkit NEWS -- History of user-visible changes.           -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** oathtool: Add --hex which correspond to the long-time default behaviour.
+Reported by Kang-Che Sung <Explorer09> in
+<https://codeberg.org/oath-toolkit/oath-toolkit/issues/117>.
+
 ** oathtool: Improve command-line parse handling to reject invalid requests.
 Reported by Kang-Che Sung <Explorer09> in
 <https://codeberg.org/oath-toolkit/oath-toolkit/issues/116>.

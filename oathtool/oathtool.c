@@ -199,6 +199,9 @@ main (int argc, char *argv[])
   if (args_info.totp_given && args_info.hotp_given)
     error (EXIT_FAILURE, 0, "cannot combine --hotp and --totp");
 
+  if (args_info.base32_given && args_info.hex_given)
+    error (EXIT_FAILURE, 0, "cannot combine --hex and --base32");
+
   rc = oath_init ();
   if (rc != OATH_OK)
     error (EXIT_FAILURE, 0, "liboath initialization failed: %s",

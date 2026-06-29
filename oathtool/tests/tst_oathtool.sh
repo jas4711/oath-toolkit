@@ -69,6 +69,7 @@ dotest "-h" "fail" fail
 dotest "-z" "fail" fail
 dotest "Z" "fail" fail
 dotest "00" "328482"
+dotest "--hex 00" "328482"
 dotest "--base32 GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ" "755224"
 dotest "--base32 gezdgnbvgy3tqojqgezdgnbvgy3tqojq" "755224"
 dotest "--base32 gr6d5br725s6vnckv4vlhlaore" "993210"
@@ -219,6 +220,14 @@ if $OATHTOOL --hotp --totp 00 > /dev/null 2>&1; then
     exit 1
 else
     echo "PASS oathtool --hotp --totp"
+fi
+
+
+if $OATHTOOL --base32 --hex 00 > /dev/null 2>&1; then
+    echo "FAIL oathtool --hex --base32"
+    exit 1
+else
+    echo "PASS oathtool --hex --base32"
 fi
 
 exit 0
