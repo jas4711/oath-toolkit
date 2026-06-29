@@ -213,4 +213,12 @@ dotest "--base32 @$tmpfile @$tmpfile" "0"
 # v2.6.10 regression: invalid base32 encoded string
 dotest "--base32 XBK55CIOSR2TO6VUZX7KB2NJX2" "386584"
 
+
+if $OATHTOOL --hotp --totp 00 > /dev/null 2>&1; then
+    echo "FAIL oathtool --hotp --totp"
+    exit 1
+else
+    echo "PASS oathtool --hotp --totp"
+fi
+
 exit 0
