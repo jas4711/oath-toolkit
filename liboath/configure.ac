@@ -90,6 +90,7 @@ if test "$gl_gcc_warnings" = yes; then
   gl_WARN_ADD([-fdiagnostics-show-option])
   gl_WARN_ADD([-Wno-error=long-long])
   gl_WARN_ADD([-Wno-error=tautological-constant-out-of-range-compare])
+  gl_WARN_ADD([-Wno-error=useless-cast])
   AC_SUBST([WARN_CFLAGS])
 
   AH_VERBATIM([_FORTIFY_SOURCE], [
