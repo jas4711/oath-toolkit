@@ -271,7 +271,7 @@ B-PureOS10:
   extends: .pureosdebian
 
 B-Debian11:
-  image: debian:11-slim
+  image: debian/eol:bullseye
   extends: .pureosdebian
 
 B-Devuan5:
@@ -1179,7 +1179,7 @@ macOS:
   - time make -j$(nproc) V=1 check VERBOSE=t
 
 Mingw32:
-  image: debian:11-slim
+  image: debian:stable-slim
   stage: test
   needs: [B-Guix]
   before_script:
@@ -1196,7 +1196,7 @@ Mingw32:
   - make -j$(nproc) -C oathtool/tests check VERBOSE=t
 
 Mingw64:
-  image: debian:11-slim
+  image: debian:stable-slim
   stage: test
   needs: [B-Guix]
   before_script:
