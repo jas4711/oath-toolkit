@@ -31,5 +31,5 @@ Selecting one of the following modes is required:
       --verify           Verify signed PSKC input  (default=off)
       --verify-crt=FILE  Trusted X.509 certificate for verification
 
-Report bugs to: oath-toolkit-help@nongnu.org
+Report bugs to: <oath-toolkit-help@nongnu.org>.
 OATH Toolkit home page: <https://oath-toolkit.codeberg.page/>
