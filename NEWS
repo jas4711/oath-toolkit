@@ -1,6 +1,6 @@
 OATH Toolkit NEWS -- History of user-visible changes.           -*- outline -*-
 
-* Noteworthy changes in release ?.? (????-??-??) [?]
+* Noteworthy changes in release 2.6.15 (2026-10-13) [stable]
 
 ** oathtool: Add --hex which correspond to the long-time default behaviour.
 Reported by Kang-Che Sung <Explorer09> in
