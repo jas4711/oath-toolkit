@@ -94,7 +94,7 @@ B-gcc:
   - cat /etc/os-release
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison pkgconf libpam0g-dev libxml2-dev libxmlsec1-dev libxml2-utils help2man gengetopt patch valgrind
+  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison pkgconf libpam0g-dev libxml2-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gengetopt patch valgrind
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap
@@ -124,7 +124,7 @@ B-clang:
   - cat /etc/os-release
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison pkgconf libpam0g-dev libxml2-dev libxmlsec1-dev libxml2-utils help2man gengetopt patch valgrind
+  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison pkgconf libpam0g-dev libxml2-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gengetopt patch valgrind
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap
@@ -254,13 +254,14 @@ B-RockyLinux9:
   - cat /etc/os-release
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev libxml2-utils help2man gtk-doc-tools gengetopt datefudge patch valgrind
+  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gtk-doc-tools gengetopt datefudge patch valgrind
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap
   - time ./configure -C --enable-gcc-warnings --enable-valgrind-tests
   - time make syntax-check
   - time make -j$(nproc) V=1 VERBOSE=t check
+  - grep 'PASS tst_bypass_sign' pskctool/tests/tst_bypass_sign.sh.log
   - make -C liboath/man compare-makefile
   - make -C libpskc/man compare-makefile
   - time make -j$(nproc) V=1 VERBOSE=t distcheck
@@ -282,6 +283,14 @@ B-Debian12:
   image: debian:12-slim
   extends: .pureosdebian
 
+B-Devuan6:
+  image: devuan/devuan:excalibur
+  extends: .pureosdebian
+
+B-Debian13:
+  image: debian:13-slim
+  extends: .pureosdebian
+
 .trisquelubuntu: &trisquelubuntu
   tags: [ saas-linux-medium-amd64 ]
   stage: build
@@ -292,13 +301,14 @@ B-Debian12:
   - sed -i 's,archive.trisquel.info/trisquel,ftp.acc.umu.se/mirror/trisquel/packages,' /etc/apt/sources.list
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev libxml2-utils help2man gtk-doc-tools gengetopt datefudge patch valgrind
+  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gtk-doc-tools gengetopt datefudge patch valgrind
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap
   - time ./configure -C --enable-gcc-warnings --enable-valgrind-tests
   - time make syntax-check
   - time make -j$(nproc) V=1 VERBOSE=t check
+  - grep 'PASS tst_bypass_sign' pskctool/tests/tst_bypass_sign.sh.log
   - make -C liboath/man compare-makefile
   - make -C libpskc/man compare-makefile
   - time make -j$(nproc) V=1 VERBOSE=t distcheck
@@ -329,7 +339,7 @@ Website:
   - sed -i 's,http://archive.trisquel.info/trisquel,http://ftp.acc.umu.se/mirror/trisquel/packages,' /etc/apt/sources.list
   - time apt-get update -q
   - time apt-get install -y -q eatmydata
-  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev libxml2-utils help2man gtk-doc-tools gengetopt datefudge patch
+  - time eatmydata apt-get install -y -q --no-install-recommends wget ca-certificates make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gtk-doc-tools gengetopt datefudge patch
   - time eatmydata env DEBIAN_FRONTEND=noninteractive apt-get install -y -q asciidoc groff xsltproc
   script:
   - !reference [.gnulib-fetch, script]
@@ -352,7 +362,7 @@ B-Debian13-arm64:
   stage: build
   before_script:
   - apt-get update -qq
-  - apt-get install -y -qq wget make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev libxml2-utils help2man gtk-doc-tools gengetopt indent
+  - apt-get install -y -qq wget make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gtk-doc-tools gengetopt indent
   script:
   - !reference [.gnulib-fetch, script]
   - ./bootstrap
@@ -370,7 +380,7 @@ B-Ubuntu2204-ppc64:
   stage: build
   before_script:
   - apt-get update -qq
-  - apt-get install -y -qq wget make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev libxml2-utils help2man gtk-doc-tools gengetopt
+  - apt-get install -y -qq wget make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gtk-doc-tools gengetopt
   script:
   - !reference [.gnulib-fetch, script]
   - ./bootstrap
@@ -384,7 +394,7 @@ B-Debian13-coverage:
   stage: build
   before_script:
   - apt-get update -qq
-  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq wget make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev libxml2-utils help2man gtk-doc-tools valgrind gengetopt
+  - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq wget make git autoconf automake libtool bison libpam0g-dev libxmlsec1-dev xmlsec1 libxml2-utils help2man gtk-doc-tools valgrind gengetopt
   - env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq faketime lcov libpam-wrapper
   script:
   - echo "--suppressions=$(pwd)/libpskc/tests/libpskc.supp" >> ~/.valgrindrc
