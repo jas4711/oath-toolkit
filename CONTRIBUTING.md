@@ -168,6 +168,7 @@ git push origin main tag v$v
 git clean -d -x -f
 ./bootstrap
 ./configure --enable-gtk-doc-pdf --enable-gtk-doc-html
+make
 make release RELEASE='X.Y.Z TYPE' gnulib_dir=../gnulib
 ```
 
@@ -181,17 +182,17 @@ make release RELEASE='X.Y.Z TYPE' gnulib_dir=../gnulib
 * Sign and upload tarballs:
 
 ```
-gpg -b oath-toolkit-2.6.14.tar.gz
-gpg -b oath-toolkit-v2.6.14-src.tar.gz
+gpg -b oath-toolkit-2.6.15.tar.gz
+gpg -b oath-toolkit-v2.6.15-src.tar.gz
 ssh-add -L > jas.pub
-sigsum-submit -k jas.pub oath-toolkit-2.6.14.tar.gz
-sigsum-submit -k jas.pub oath-toolkit-v2.6.14-src.tar.gz
+sigsum-submit -k jas.pub oath-toolkit-2.6.15.tar.gz
+sigsum-submit -k jas.pub oath-toolkit-v2.6.15-src.tar.gz
 sigsum-submit --timeout 30s --diagnostics=debug -P sigsum-generic-2025-1 --token-signing-key ~/path/to/sigsum/token.key --token-domain josefsson.org oath-toolkit-*.req
-sigsum-verify -k jas.pub -P sigsum-generic-2025-1 oath-toolkit-2.6.14.tar.gz.proof < oath-toolkit-2.6.14.tar.gz
-sigsum-verify -k jas.pub -P sigsum-generic-2025-1 oath-toolkit-v2.6.14-src.tar.gz.proof < oath-toolkit-v2.6.14-src.tar.gz
+sigsum-verify -k jas.pub -P sigsum-generic-2025-1 oath-toolkit-2.6.15.tar.gz.proof < oath-toolkit-2.6.15.tar.gz
+sigsum-verify -k jas.pub -P sigsum-generic-2025-1 oath-toolkit-v2.6.15-src.tar.gz.proof < oath-toolkit-v2.6.15-src.tar.gz
 mkdir -p ../releases/oath-toolkit/
-cp -v oath-toolkit-2.6.14.tar.gz oath-toolkit-2.6.14.tar.gz.sig oath-toolkit-2.6.14.tar.gz.proof oath-toolkit-v2.6.14-src.tar.gz oath-toolkit-v2.6.14-src.tar.gz.sig oath-toolkit-v2.6.14-src.tar.gz.proof ../releases/oath-toolkit/
-rsync -tv oath-toolkit-2.6.14.tar.gz oath-toolkit-2.6.14.tar.gz.sig oath-toolkit-2.6.14.tar.gz.proof oath-toolkit-v2.6.14-src.tar.gz oath-toolkit-v2.6.14-src.tar.gz.sig oath-toolkit-v2.6.14-src.tar.gz.proof jas@dl.sv.nongnu.org:/releases/oath-toolkit/
+cp -v oath-toolkit-2.6.15.tar.gz oath-toolkit-2.6.15.tar.gz.sig oath-toolkit-2.6.15.tar.gz.proof oath-toolkit-v2.6.15-src.tar.gz oath-toolkit-v2.6.15-src.tar.gz.sig oath-toolkit-v2.6.15-src.tar.gz.proof ../releases/oath-toolkit/
+rsync -tv oath-toolkit-2.6.15.tar.gz oath-toolkit-2.6.15.tar.gz.sig oath-toolkit-2.6.15.tar.gz.proof oath-toolkit-v2.6.15-src.tar.gz oath-toolkit-v2.6.15-src.tar.gz.sig oath-toolkit-v2.6.15-src.tar.gz.proof jas@dl.sv.nongnu.org:/releases/oath-toolkit/
 ```
 
 * Make sure ../www-oath-toolkit/ contains a git checkout of the
@@ -218,6 +219,7 @@ ln -s liboath ../www-oath-toolkit/reference
 
 ```
 cd ../www-oath-toolkit
+git restore .htaccess _redirects sigsum-policy-20250309.txt
 git diff
 git add .
 git commit -m "Auto-update" -a
