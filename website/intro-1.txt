@@ -4,6 +4,10 @@ list of changes.  See the link:download.html[Download page] for
 download links.
 
 IMPORTANT: Security advisory
+https://oath-toolkit.codeberg.page/CVE-2026-109117.html[CVE-2026-109117]
+about bug in OATH Toolkit version 2.0.1 to 2.6.14 inclusive.
+
+IMPORTANT: Security advisory
 https://oath-toolkit.codeberg.page/CVE-2024-47191.html[CVE-2024-47191]
 about bug in OATH Toolkit version 2.6.7 to 2.6.11 inclusive.
 

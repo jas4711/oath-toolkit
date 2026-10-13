@@ -15,6 +15,10 @@ Combining --hotp with --time-step-size, --start-time, or --now does
 not make sense.  Combining --totp with --counter does not make sense.
 All these are now rejected as user errors.
 
+** libpskc: Fix PSKC signature verification bypass.
+See https://oath-toolkit.codeberg.page/CVE-2026-109117.html or (file
+in git) website/CVE-2026-109117.txt for advisory.
+
 * Noteworthy changes in release 2.6.14 (2026-01-27) [stable]
 
 ** pam_oath: Support null_usersfile_okay parameter.
