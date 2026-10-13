@@ -182,6 +182,13 @@ verify (pskc_t *container, xmlSecKeysMngrPtr mngr,
       return PSKC_XMLSEC_ERROR;
     }
 
+  if (xmlSecPtrListAdd (&dsigCtx->keyInfoReadCtx.enabledKeyData,
+			BAD_CAST xmlSecKeyDataX509Id) < 0)
+    {
+      _pskc_debug ("xmlSecPtrListAdd(keyInfoReadCtx.enabledKeyData) failed");
+      return PSKC_XMLSEC_ERROR;
+    }
+
   if (xmlSecDSigCtxVerify (dsigCtx, node) < 0)
     {
       _pskc_debug ("xmlSecDSigCtxVerify failed");
