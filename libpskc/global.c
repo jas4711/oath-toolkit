@@ -30,6 +30,7 @@
 #ifdef USE_XMLSEC
 # include <xmlsec/xmlsec.h>
 # include <xmlsec/crypto.h>
+# include <xmlsec/dl.h>
 #endif
 
 static int _pskc_init = 0;
