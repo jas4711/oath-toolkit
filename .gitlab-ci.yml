@@ -72,14 +72,12 @@ B-Guix:
   - guix archive --authorize < /share/guix/ci.guix.gnu.org.pub
   - guix archive --authorize < /share/guix/bordeaux.guix.gnu.org.pub
   - guix describe
-  - guix install --verbosity=0 linux-pam
-  - GUIX_PROFILE="//.guix-profile"
-  - . "$GUIX_PROFILE/etc/profile"
-  - . /etc/profile
+  - export PAMDIR=$(guix build --verbosity=0 linux-pam | grep -v -- -doc | head -1)
+  - export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PAMDIR/lib/pkgconfig
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap
-  - time ./configure --enable-gcc-warnings CPPFLAGS="$(pkg-config --cflags pam)" LDFLAGS="$(pkg-config --libs pam)"
+  - time ./configure --enable-gcc-warnings --enable-gtk-doc --with-pam-dir=$PAMDIR/lib/security CPPFLAGS="$(pkg-config --cflags pam)" LDFLAGS="$(pkg-config --libs pam)"
   - time make -j$(nproc) syntax-check
   - time make -j$(nproc) check V=1 VERBOSE=t
   - time make V=1 dist
@@ -730,14 +728,13 @@ R-Guix:
   - guix archive --authorize < /share/guix/ci.guix.gnu.org.pub
   - guix archive --authorize < /share/guix/bordeaux.guix.gnu.org.pub
   - guix describe
-  - guix install --verbosity=0 linux-pam
-  - GUIX_PROFILE="//.guix-profile"
-  - . "$GUIX_PROFILE/etc/profile"
-  - . /etc/profile
+  - guix build --verbosity=0 linux-pam
+  - export PAMDIR=$(guix build --verbosity=0 linux-pam | grep -v -- -doc | head -1)
+  - export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PAMDIR/lib/pkgconfig
   script:
   - !reference [.gnulib-fetch, script]
   - time ./bootstrap
-  - time ./configure --enable-gcc-warnings CPPFLAGS="$(pkg-config --cflags pam)" LDFLAGS="$(pkg-config --libs pam)"
+  - time ./configure --enable-gcc-warnings --enable-gtk-doc --with-pam-dir=$PAMDIR/lib/security CPPFLAGS="$(pkg-config --cflags pam)" LDFLAGS="$(pkg-config --libs pam)"
   - time make V=1 syntax-check
   - time make -j$(nproc) check V=1 VERBOSE=t
   - time make -j$(nproc) dist V=1 VERBOSE=t
@@ -759,7 +756,7 @@ R-Guix:
       reltyp=$(cat NEWS | sed -n -e 's/.*release \([0-9.]\+\) (....-..-..) \[\(.*\)\].*/\2/p' | head -1)
     fi
   - test "$relver" != "97.23.42" || make release-commit RELEASE="$relver $reltyp"
-  - make release RELEASE="$relver $reltyp" V=1 VERBOSE=t
+  - make release RELEASE="$relver $reltyp" V=1 VERBOSE=t DISTCHECK_CONFIGURE_FLAGS="--with-pam-dir=$PAMDIR/lib/security CPPFLAGS=\"$(pkg-config --cflags pam)\" LDFLAGS=\"$(pkg-config --libs pam)\""
   - cat -n ~/announce-*
   - git diff --exit-code # nothing should change version controlled files
   - sha256sum *.tar.*
