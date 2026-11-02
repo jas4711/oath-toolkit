@@ -10,6 +10,10 @@ Fixes build failure with gentgetopt 2.23.1 and later, also see
 Reported by Sam James and patch by Paul Zander in
 <https://codeberg.org/oath-toolkit/oath-toolkit/pulls/122>.
 
+** tests: Fix failures with xmlsec v1.3.13+.
+Reported by Sam James in
+<https://codeberg.org/oath-toolkit/oath-toolkit/issues/121>.
+
 * Noteworthy changes in release 2.6.15 (2026-10-13) [stable]
 
 ** oathtool: Add --hex which correspond to the long-time default behaviour.

@@ -24,10 +24,13 @@ grep '#define USE_XMLSEC 1' ../../libpskc/config.h > /dev/null \
 srcdir=${srcdir:-.}
 PSKCTOOL=${PSKCTOOL:-../pskctool}
 
+nl='\
+' # OpenBSD sed
 $PSKCTOOL --sign --sign-key $srcdir/pskc-ee-key.pem \
     --sign-crt $srcdir/pskc-ee-crt.pem \
     $srcdir/../../libpskc/examples/pskc-hotp.xml \
-    | sed 's,4</X509Cert,4\n</X509Cert,' > bar
+    | sed 's,4</X509Cert,4\n</X509Cert,' \
+    | sed "s,<X509Certificate>MII,<X509Certificate>${nl}MII," > bar
 if ! diff -ur $srcdir/../../libpskc/examples/pskc-hotp-signed.xml bar; then
     echo "FAIL: pskctool --sign output change, commit updated file."
     exit 1

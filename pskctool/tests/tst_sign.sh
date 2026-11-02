@@ -32,10 +32,13 @@ pskc_root_crt="$srcdir/pskc-root-crt.pem"
 
 $PSKCTOOL --info --strict --debug $pskc_all > tmp-pre-human.txt
 
+nl='\
+' # OpenBSD sed
 $PSKCTOOL --sign \
     --sign-key $pskc_ee_key \
     --sign-crt $pskc_ee_crt \
-    $pskc_all | sed 's,4</X509Cert,4\n</X509Cert,' > tmp-signed.xml
+    $pskc_all | sed 's,4</X509Cert,4\n</X509Cert,' \
+    | sed "s,<X509Certificate>MII,<X509Certificate>${nl}MII," > tmp-signed.xml
 
 diff -ur $pskc_all_signed tmp-signed.xml
 
