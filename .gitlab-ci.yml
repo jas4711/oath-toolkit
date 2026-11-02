@@ -455,6 +455,22 @@ B-F41-clang-Sanitizer:
   - grep '^PASS tst_oathtool' oathtool/tests/tst_oathtool.sh.log
   - grep '^PASS tst_validate' libpskc/tests/tst_validate.log
 
+B-Gentoo:
+  image: gentoo/stage3
+  stage: build
+  before_script:
+  - echo 'FEATURES="getbinpkg"' >> /etc/portage/make.conf
+  - echo 'PORTAGE_RSYNC_EXTRA_OPTS="--info=all0 --timeout 3"' >> /etc/portage/make.conf
+  - echo "dev-libs/xmlsec ~amd64" > /etc/portage/package.accept_keywords/xmlsec
+  - time emaint --auto sync 2>&1 | tee emaint.log
+  - time emerge --getbinpkg --quiet dev-vcs/git gengetopt datefudge dev-libs/xmlsec 2>&1 | tee emerge.log
+  script:
+  - !reference [.gnulib-fetch, script]
+  - time ./bootstrap 2>&1 | tee bootstrap.log
+  - ./configure --enable-gcc-warnings 2>&1 | tee configure.log
+  - make -j$(nproc) check V=1 VERBOSE=t 2>&1 | tee build.log
+  - !reference [.save-artifacts, script]
+
 Fedora-rawhide:
   image: fedora:rawhide
   stage: test
