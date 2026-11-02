@@ -4,12 +4,12 @@ Manipulate Portable Symmetric Key Container (PSKC) data.
 This tool allows you to parse, print, validate, sign and verify PSKC data.  The
 input is provided in FILE or on standard input.
 
-  -h, --help             Print help and exit
-  -V, --version          Print version and exit
       --strict           Fail hard on PSKC parse error  (default=off)
   -d, --debug            Show debug messages on stderr  (default=off)
   -q, --quiet            Quiet operation  (default=off)
   -v, --verbose          Produce more output  (default=off)
+  -h, --help             Print help and exit
+  -V, --version          Print version and exit
 
 Selecting one of the following modes is required:
 

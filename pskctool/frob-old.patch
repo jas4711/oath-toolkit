@@ -1,0 +1,17 @@
+--- pskctool_cmd.c.orig	2026-11-02 09:11:25.420794309 +0100
++++ pskctool_cmd.c	2026-11-02 09:11:33.508794129 +0100
+@@ -34,12 +34,12 @@
+ const char *gengetopt_args_info_description = "This tool allows you to parse, print, validate, sign and verify PSKC data.  The\ninput is provided in FILE or on standard input.";
+ 
+ const char *gengetopt_args_info_help[] = {
+-  "  -h, --help             Print help and exit",
+-  "  -V, --version          Print version and exit",
+   "      --strict           Fail hard on PSKC parse error  (default=off)",
+   "  -d, --debug            Show debug messages on stderr  (default=off)",
+   "  -q, --quiet            Quiet operation  (default=off)",
+   "  -v, --verbose          Produce more output  (default=off)",
++  "  -h, --help             Print help and exit",
++  "  -V, --version          Print version and exit",
+   "\nSelecting one of the following modes is required:",
+   "\n Mode: info",
+   "  -i, --info             Parse and print human readable summary of PSKC input\n                           (default=off)",

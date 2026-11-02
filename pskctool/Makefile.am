@@ -36,6 +36,7 @@ pskctool_cmd.h pskctool_cmd.c: pskctool.ggo Makefile.am
 		--set-package="pskctool" \
 		--no-handle-version --no-handle-help \
 		--input repro-gengetopt.ggo --file-name pskctool_cmd && \
+	$(srcdir)/frob-gengetopt.sh && \
 	rm -v repro-gengetopt.ggo
 
 dist_man_MANS = pskctool.1

@@ -2,6 +2,10 @@ OATH Toolkit NEWS -- History of user-visible changes.           -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** pskctool: Improve --help output.
+Fixes build failure with gentgetopt 2.23.1 and later, also see
+<https://lists.gnu.org/archive/html/help-gengetopt/2026-11/msg00000.html>.
+
 ** libpskc: Fix implicit-function-declaration with XMLSec 1.3.13+.
 Reported by Sam James and patch by Paul Zander in
 <https://codeberg.org/oath-toolkit/oath-toolkit/pulls/122>.
